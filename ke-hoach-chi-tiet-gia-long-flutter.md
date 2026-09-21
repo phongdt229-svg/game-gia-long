@@ -184,7 +184,7 @@ gia_long_flutter/
 - [x] Chốt hệ thống quest tổng quan
 - [x] Chọn công nghệ: Flutter + VS Code
 - [x] Dựng khung code Hồi 1 (đã có: `main.dart`, `story_data.dart`, `save_service.dart`)
-- [ ] Vẽ sơ đồ luồng game tổng thể (flow chart) từ Hồi 1 → Hồi 6
+- [x] Vẽ sơ đồ luồng game tổng thể (flow chart) từ Hồi 1 → Hồi 6 (xem `docs/so-do-luong-game.md`)
 
 ### GIAI ĐOẠN 1 — Hoàn thiện khung kỹ thuật (2–3 tuần)
 - [x] Tách `story_data.dart` thành cấu trúc `story/act1_data.dart` v.v.
