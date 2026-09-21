@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Force; try { \\(Get-Command flutter -ErrorAction Stop\\).Source; flutter --version } catch { \"no flutter\" })"
+    ]
+  }
+}
