@@ -214,12 +214,12 @@ gia_long_flutter/
 ### GIAI ĐOẠN 5 — Kiểm thử & tinh chỉnh (3–4 tuần)
 - [x] Chơi thử toàn bộ từ đầu đến cuối tất cả các nhánh chính (mô phỏng 2000 ván ngẫu nhiên: `test/coverage_test.dart`; bạn vẫn nên tự chơi thử ít nhất một lượt)
 - [x] Sửa lỗi, cân bằng chỉ số/độ khó (đã chỉnh trận Quy Nhơn/Thị Nại; trận Thăng Long cần quân lực ≥ 30)
-- [ ] Nhờ người ngoài chơi thử, lấy phản hồi khách quan
+- [ ] Nhờ người ngoài chơi thử, lấy phản hồi khách quan *(việc của bạn)*
 
 ### GIAI ĐOẠN 6 — Phát hành (1–2 tuần)
-- [ ] Build bản Web (`flutter build web`) để chia sẻ link chơi thử
-- [ ] (Tùy chọn) Build Android (`flutter build apk`)
-- [ ] Đăng lên itch.io hoặc chia sẻ trực tiếp link web
+- [x] Build bản Web (`flutter build web`) để chia sẻ link chơi thử (`gia_long_flutter/scripts/build_web.sh` → zip cho itch.io)
+- [~] (Tùy chọn) Build Android (`flutter build apk`) — hướng dẫn trong `docs/phat-hanh.md`, chưa build được vì máy chưa có Android SDK
+- [~] Đăng lên itch.io hoặc chia sẻ trực tiếp link web — gói zip và hướng dẫn đã sẵn sàng (`docs/phat-hanh.md`), **cần tài khoản của bạn để đăng**
 
 ---
 
