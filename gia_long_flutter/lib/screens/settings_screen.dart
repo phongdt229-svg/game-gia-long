@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../services/audio_service.dart';
 import '../services/save_service.dart';
 
 /// Cài đặt: cỡ chữ và xóa dữ liệu đã lưu.
@@ -55,6 +56,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: 8),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: const Text('Nhạc nền'),
+            subtitle: const Text('Chỉ có tiếng khi đã thêm file nhạc vào assets/audio/'),
+            value: AudioService.instance.enabled,
+            onChanged: (v) async {
+              await AudioService.instance.setEnabled(v);
+              await widget.save.saveMusicEnabled(v);
+              if (mounted) setState(() {});
+            },
           ),
           const SizedBox(height: 16),
           OutlinedButton.icon(

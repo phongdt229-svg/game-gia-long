@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'screens/main_menu_screen.dart';
+import 'services/asset_catalog.dart';
+import 'services/audio_service.dart';
 import 'services/save_service.dart';
 
-void main() => runApp(const GiaLongApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AssetCatalog.load();
+  runApp(const GiaLongApp());
+}
 
 class GiaLongApp extends StatefulWidget {
   const GiaLongApp({super.key});
@@ -21,6 +27,7 @@ class _GiaLongAppState extends State<GiaLongApp> {
   void initState() {
     super.initState();
     _save.loadTextScale().then((v) => _textScale.value = v);
+    _save.loadMusicEnabled().then(AudioService.instance.setEnabled);
   }
 
   @override

@@ -179,6 +179,8 @@ gia_long_flutter/
 
 ## 8. LỘ TRÌNH PHÁT TRIỂN THEO GIAI ĐOẠN
 
+> Ký hiệu: `[x]` xong · `[~]` phần code xong, chờ nội dung/asset từ bạn · `[ ]` chưa làm.
+
 ### GIAI ĐOẠN 0 — Tiền sản xuất (2–3 tuần)
 - [x] Chốt cốt truyện 6 hồi
 - [x] Chốt hệ thống quest tổng quan
@@ -193,7 +195,7 @@ gia_long_flutter/
 - [x] Xây `screens/quest_log_screen.dart` cơ bản
 
 ### GIAI ĐOẠN 2 — Nội dung Hồi 1–3 (2–3 tháng)
-- [ ] Hoàn thiện toàn bộ scene + lựa chọn Hồi 1 (mở rộng thêm nhánh ngoài demo hiện có)
+- [x] Hoàn thiện toàn bộ scene + lựa chọn Hồi 1 (mở rộng thêm nhánh ngoài demo hiện có: xóm chài Hà Tiên, đêm binh sĩ muốn bỏ trốn)
 - [x] Viết Hồi 2: cơ chế "vòng lặp được–mất", trận Rạch Gầm (thất bại có kịch bản)
 - [x] Viết Hồi 3: quest ngoại giao, quest ẩn "Góc Nhìn Đa Chiều"
 - [x] Gắn hệ thống quest vào từng scene tương ứng
@@ -205,13 +207,13 @@ gia_long_flutter/
 - [x] Cutscene kết + màn hình tổng kết lựa chọn người chơi
 
 ### GIAI ĐOẠN 4 — Asset hình ảnh & âm thanh (2–4 tuần, làm song song)
-- [ ] Thêm hình nền từng bối cảnh (Gia Định, Xiêm La, Phú Xuân, Thăng Long...)
-- [ ] Thêm chân dung nhân vật chính (Nguyễn Ánh, Bá Đa Lộc, tướng lĩnh)
-- [ ] Thêm nhạc nền theo từng Hồi, hiệu ứng âm thanh lựa chọn/chiến đấu
+- [~] Thêm hình nền từng bối cảnh (Gia Định, Xiêm La, Phú Xuân, Thăng Long...) — hệ thống đã sẵn sàng, **chờ file ảnh**, xem `gia_long_flutter/assets/README.md`
+- [~] Thêm chân dung nhân vật chính (Nguyễn Ánh, Bá Đa Lộc, tướng lĩnh) — hệ thống đã sẵn sàng, **chờ file ảnh**
+- [~] Thêm nhạc nền theo từng Hồi, hiệu ứng âm thanh lựa chọn/chiến đấu — nhạc nền theo Hồi/trận đánh đã sẵn sàng (có công tắc trong Cài đặt), **chờ file nhạc**; chưa có hiệu ứng âm thanh
 
 ### GIAI ĐOẠN 5 — Kiểm thử & tinh chỉnh (3–4 tuần)
-- [ ] Chơi thử toàn bộ từ đầu đến cuối tất cả các nhánh chính
-- [ ] Sửa lỗi, cân bằng chỉ số/độ khó
+- [x] Chơi thử toàn bộ từ đầu đến cuối tất cả các nhánh chính (mô phỏng 2000 ván ngẫu nhiên: `test/coverage_test.dart`; bạn vẫn nên tự chơi thử ít nhất một lượt)
+- [x] Sửa lỗi, cân bằng chỉ số/độ khó (đã chỉnh trận Quy Nhơn/Thị Nại; trận Thăng Long cần quân lực ≥ 30)
 - [ ] Nhờ người ngoài chơi thử, lấy phản hồi khách quan
 
 ### GIAI ĐOẠN 6 — Phát hành (1–2 tuần)

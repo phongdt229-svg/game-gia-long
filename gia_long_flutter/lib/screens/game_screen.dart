@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import '../game/game_controller.dart';
 import '../models/battle.dart';
 import '../models/scene.dart';
+import '../services/audio_service.dart';
+import '../story/asset_map.dart';
 import '../story/story_registry.dart';
 import '../widgets/choice_button.dart';
+import '../widgets/scene_backdrop.dart';
 import '../widgets/scene_card.dart';
 import '../widgets/stat_chip.dart';
 import 'base_screen.dart';
@@ -32,16 +35,21 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     c.addListener(_onChanged);
     _onChanged(); // hiện thông báo đang chờ (ví dụ khi Tiếp tục ván cũ)
+    _syncMusic();
   }
 
   @override
   void dispose() {
     c.removeListener(_onChanged);
+    AudioService.instance.stop();
     _scroll.dispose();
     super.dispose();
   }
 
+  void _syncMusic() => AudioService.instance.playMusic(musicFor(c.scene));
+
   void _onChanged() {
+    _syncMusic();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       if (_scroll.hasClients) _scroll.jumpTo(0);
@@ -63,15 +71,18 @@ class _GameScreenState extends State<GameScreen> {
 
   Future<void> _openBattle(Scene scene) async {
     final def = battlesById[scene.battleId]!;
-    final result = await Navigator.of(context).push<BattleResult>(MaterialPageRoute(
-      builder: (_) => BattleScreen(def: def, state: c.state, weakened: c.isWeakened(def)),
+    final result =
+        await Navigator.of(context).push<BattleResult>(MaterialPageRoute(
+      builder: (_) =>
+          BattleScreen(def: def, state: c.state, weakened: c.isWeakened(def)),
     ));
     if (result != null) c.finishBattle(def, result);
   }
 
   Future<void> _openBase(Scene scene) async {
     final def = basesById[scene.baseId]!;
-    final stats = await Navigator.of(context).push<Map<String, int>>(MaterialPageRoute(
+    final stats =
+        await Navigator.of(context).push<Map<String, int>>(MaterialPageRoute(
       builder: (_) => BaseScreen(def: def, state: c.state),
     ));
     if (stats != null) c.finishBase(def, stats);
@@ -90,8 +101,12 @@ class _GameScreenState extends State<GameScreen> {
         title: const Text('Chơi lại Hồi này?'),
         content: const Text('Tiến trình từ đầu Hồi hiện tại sẽ bị xóa.'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Hủy')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Chơi lại')),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('Hủy')),
+          FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: const Text('Chơi lại')),
         ],
       ),
     );
@@ -123,47 +138,54 @@ class _GameScreenState extends State<GameScreen> {
         final scene = c.scene;
         return Scaffold(
           appBar: AppBar(
-            title: Text(actTitles[scene.act] ?? 'Hồi ${scene.act}', style: const TextStyle(fontSize: 16)),
+            title: Text(actTitles[scene.act] ?? 'Hồi ${scene.act}',
+                style: const TextStyle(fontSize: 16)),
             actions: [
               PopupMenuButton<String>(
                 onSelected: _onMenuSelected,
                 itemBuilder: (_) => const [
-                  PopupMenuItem(value: 'quests', child: Text('Nhật ký nhiệm vụ')),
-                  PopupMenuItem(value: 'restart', child: Text('Chơi lại Hồi này')),
-                  PopupMenuItem(value: 'menu', child: Text('Về màn hình chính')),
+                  PopupMenuItem(
+                      value: 'quests', child: Text('Nhật ký nhiệm vụ')),
+                  PopupMenuItem(
+                      value: 'restart', child: Text('Chơi lại Hồi này')),
+                  PopupMenuItem(
+                      value: 'menu', child: Text('Về màn hình chính')),
                 ],
               ),
             ],
           ),
-          body: SafeArea(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 720),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                      child: StatBar(stats: c.state.stats),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        controller: _scroll,
-                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 250),
-                          child: Column(
-                            key: ValueKey(scene.id),
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              SceneCard(scene: scene),
-                              const SizedBox(height: 16),
-                              ..._buildActions(scene),
-                            ],
+          body: SceneBackdrop(
+            scene: scene,
+            child: SafeArea(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 720),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                        child: StatBar(stats: c.state.stats),
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          controller: _scroll,
+                          padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 250),
+                            child: Column(
+                              key: ValueKey(scene.id),
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                SceneCard(scene: scene),
+                                const SizedBox(height: 16),
+                                ..._buildActions(scene),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

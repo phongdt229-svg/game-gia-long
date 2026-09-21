@@ -131,8 +131,36 @@ const act1Scenes = <Scene>[
       ),
       Choice(
         text: 'Cảm ơn nhưng từ chối — tự tìm đường ra biển',
-        next: 'a1_island',
+        next: 'a1_fishers',
         effect: {'morale': 5, 'food': -5},
+      ),
+    ],
+  ),
+  Scene(
+    id: 'a1_fishers',
+    act: 1,
+    title: 'Xóm chài ven biển',
+    location: 'Vùng biển Hà Tiên — rạng sáng',
+    text: 'Sáng ra, xuồng cập vào một xóm chài nghèo. Những người dân đứng nép sau vách lá, '
+        'nhìn đoàn người rách rưới với ánh mắt dè chừng — lính Tây Sơn vừa đi qua và đã hỏi dò '
+        'tung tích "con cháu chúa Nguyễn".\n\n'
+        'Một bà lão chậm rãi bước ra, tay ôm giỏ cá khô.',
+    historyNote: 'Trong những năm lưu vong, Nguyễn Ánh nhiều lần được dân chài và dân ven biển '
+        'miền Tây cưu mang, tiếp tế lương thực và chỉ đường. Sử nhà Nguyễn còn ghi lại nhiều chuyện '
+        'kể về sự giúp đỡ của dân thường trong giai đoạn này.',
+    choices: [
+      Choice(
+        text: 'Trao vài món trang sức còn lại đổi lấy cá khô và gạo',
+        next: 'a1_island',
+        effect: {'food': 8, 'morale': -2},
+      ),
+      Choice(
+        text: 'Kể lại chuyện đêm mở kho lương — dân chài nhận ra người có ơn với dân',
+        next: 'a1_island',
+        requiresFlag: 'nhan_tu',
+        effect: {'food': 12, 'morale': 8},
+        setFlags: ['dan_ung_ho'],
+        logLabel: 'Được dân chài Hà Tiên cưu mang nhờ tấm lòng nhân từ',
       ),
     ],
   ),
@@ -164,15 +192,46 @@ const act1Scenes = <Scene>[
     choices: [
       Choice(
         text: 'Chia đều từng bát gạo cho mọi người, kể cả mình',
-        next: 'a1_oath',
+        next: 'a1_whisper',
         effect: {'food': -5, 'morale': 12},
         setFlags: ['dong_cam'],
         logLabel: 'Chia đều lương thực với binh sĩ trên đảo hoang',
       ),
       Choice(
         text: 'Giữ phần gạo cho các tướng để còn sức chỉ huy',
-        next: 'a1_oath',
+        next: 'a1_whisper',
         effect: {'food': 5, 'morale': -12},
+      ),
+    ],
+  ),
+  Scene(
+    id: 'a1_whisper',
+    act: 1,
+    title: 'Tiếng thì thầm trong đêm',
+    location: 'Doanh trại tạm trên đảo Thổ Chu',
+    text: 'Nửa đêm, một người lính già lén tìm đến trình báo: có bảy, tám người trong đoàn '
+        'đã gom góp lương khô, định cướp một chiếc thuyền nhỏ trốn về đất liền để xin hàng.\n\n'
+        '"Họ không xấu, thưa Hoàng tôn. Họ chỉ mệt, và sợ."',
+    choices: [
+      Choice(
+        text: 'Gọi mọi người lại, nói thẳng tình thế — ai muốn đi cứ đi, không truy cứu',
+        next: 'a1_oath',
+        effect: {'army': -3, 'morale': 6},
+        setFlags: ['thang_than'],
+        logLabel: 'Cho phép binh sĩ mỏi mệt được rời đi',
+      ),
+      Choice(
+        text: 'Nghiêm lệnh: kẻ nào bỏ trốn sẽ bị xử theo quân pháp',
+        next: 'a1_oath',
+        effect: {'morale': -8, 'army': 2},
+        setFlags: ['quan_phap'],
+        logLabel: 'Giữ quân bằng kỷ luật sắt trên đảo hoang',
+      ),
+      Choice(
+        text: 'Thức cùng lính bên đống lửa, kể chuyện quê cũ đến sáng',
+        next: 'a1_oath',
+        requires: {'morale': 40},
+        effect: {'morale': 8, 'food': -2},
       ),
     ],
   ),

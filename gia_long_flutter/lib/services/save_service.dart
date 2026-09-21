@@ -8,6 +8,7 @@ import '../models/player_state.dart';
 class SaveService {
   static const _saveKey = 'gia_long_save_v1';
   static const _textScaleKey = 'gia_long_text_scale';
+  static const _musicKey = 'gia_long_music_enabled';
 
   Future<bool> hasSave() async => (await SharedPreferences.getInstance()).containsKey(_saveKey);
 
@@ -36,6 +37,16 @@ class SaveService {
   Future<double> loadTextScale() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getDouble(_textScaleKey) ?? 1.0;
+  }
+
+  Future<bool> loadMusicEnabled() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_musicKey) ?? true;
+  }
+
+  Future<void> saveMusicEnabled(bool enabled) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_musicKey, enabled);
   }
 
   Future<void> saveTextScale(double scale) async {

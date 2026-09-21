@@ -31,15 +31,15 @@ const allBattles = <BattleDef>[
     phases: [
       BattlePhase(
         name: 'Tiền đồn Tây Sơn',
-        hp: 50,
-        atk: 7,
+        hp: 65,
+        atk: 10,
         pattern: [EnemyMove.attack, EnemyMove.attack, EnemyMove.rally],
         intro: 'Quân Tây Sơn tử thủ ở các đồn ngoài thành.',
       ),
       BattlePhase(
         name: 'Thủ thành Quy Nhơn',
-        hp: 60,
-        atk: 8,
+        hp: 80,
+        atk: 11,
         pattern: [EnemyMove.defend, EnemyMove.attack, EnemyMove.heavy, EnemyMove.rally],
         intro: 'Cổng thành đóng chặt, quân thủ thành co cụm sau tường cao.',
       ),
@@ -59,15 +59,15 @@ const allBattles = <BattleDef>[
     phases: [
       BattlePhase(
         name: 'Chiến thuyền tiên phong',
-        hp: 55,
-        atk: 8,
+        hp: 70,
+        atk: 11,
         pattern: [EnemyMove.attack, EnemyMove.heavy, EnemyMove.rally],
         intro: 'Thuyền tiên phong Tây Sơn lao ra chặn đầu.',
       ),
       BattlePhase(
         name: 'Soái thuyền Tây Sơn',
-        hp: 70,
-        atk: 9,
+        hp: 90,
+        atk: 12,
         pattern: [EnemyMove.defend, EnemyMove.attack, EnemyMove.heavy, EnemyMove.rally],
         intro: 'Soái thuyền dày đặc hỏa pháo, quyết chiến đến cùng.',
       ),

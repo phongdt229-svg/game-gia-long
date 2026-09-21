@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/scene.dart';
+import '../services/asset_catalog.dart';
+import '../story/asset_map.dart';
 
 /// Thẻ hiển thị nội dung một cảnh: tiêu đề, địa điểm, lời kể, sử liệu.
 class SceneCard extends StatelessWidget {
@@ -18,9 +20,23 @@ class SceneCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              scene.title,
-              style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                if (AssetCatalog.has(portraitFor(scene))) ...[
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage(portraitFor(scene)!),
+                    onBackgroundImageError: (_, __) {},
+                  ),
+                  const SizedBox(width: 14),
+                ],
+                Expanded(
+                  child: Text(
+                    scene.title,
+                    style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
             if (scene.location != null) ...[
               const SizedBox(height: 6),
