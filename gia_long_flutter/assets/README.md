@@ -2,6 +2,8 @@
 
 Game **chạy bình thường khi thiếu file** ở đây: thiếu hình nền thì dùng nền gradient theo Hồi, thiếu chân dung thì không hiện, thiếu nhạc thì im lặng. Chỉ cần đặt file đúng **tên** và **thư mục** bên dưới, game tự nhận (không cần sửa code). Đổi/ thêm ánh xạ ở `lib/story/asset_map.dart`.
 
+> Chưa có asset? Xem **[docs/prompt-tao-asset.md](../../docs/prompt-tao-asset.md)** — prompt viết sẵn cho từng file để dùng với các AI tạo ảnh/nhạc.
+
 Sau khi thêm file: `flutter pub get` không cần chạy lại, nhưng phải **Hot Restart** (`R`) hoặc chạy lại app vì danh sách asset đọc lúc khởi động.
 
 ## Hình nền — `images/backgrounds/`
