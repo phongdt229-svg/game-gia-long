@@ -146,29 +146,31 @@ Mỗi `Scene` có danh sách `Choice`, mỗi `Choice` dẫn tới `next` scene v
 gia_long_flutter/
 ├── pubspec.yaml
 ├── lib/
-│   ├── main.dart              # điểm khởi động + điều hướng chính
+│   ├── main.dart              # điểm khởi động, theme, cỡ chữ
+│   ├── game/
+│   │   ├── game_controller.dart  # luồng game: chuyển cảnh, chỉ số, quest, lưu
+│   │   └── battle_engine.dart    # logic chiến đấu theo lượt (tách khỏi UI)
 │   ├── story/
-│   │   ├── act1_data.dart     # cảnh + lựa chọn Hồi 1
-│   │   ├── act2_data.dart     # Hồi 2 (thêm khi phát triển)
-│   │   └── ...                # act3-6
+│   │   ├── act1_data.dart ... act6_data.dart  # cảnh + lựa chọn từng Hồi
+│   │   ├── quests_data.dart / battles_data.dart / bases_data.dart
+│   │   └── story_registry.dart   # gom toàn bộ dữ liệu, tra cứu theo id
 │   ├── models/
-│   │   ├── scene.dart         # class Scene, Choice
-│   │   ├── quest.dart         # class Quest
-│   │   └── player_state.dart  # chỉ số, inventory
+│   │   ├── scene.dart, quest.dart, player_state.dart
+│   │   └── battle.dart, base_building.dart
 │   ├── services/
 │   │   └── save_service.dart  # lưu/đọc bằng shared_preferences
 │   ├── screens/
-│   │   ├── game_screen.dart   # màn chơi chính (scene + lựa chọn)
-│   │   ├── quest_log_screen.dart
-│   │   └── main_menu_screen.dart
+│   │   ├── main_menu_screen.dart, game_screen.dart, quest_log_screen.dart
+│   │   ├── battle_screen.dart, base_screen.dart, ending_screen.dart
+│   │   └── settings_screen.dart
 │   └── widgets/
 │       ├── choice_button.dart
 │       ├── stat_chip.dart
 │       └── scene_card.dart
-├── assets/
+├── assets/                    # (chưa tạo — thêm ở Giai đoạn 4)
 │   ├── images/
 │   └── audio/
-└── test/
+└── test/                      # kiểm tra dữ liệu story, chiến đấu, luồng game, UI
 ```
 
 **Nguyên tắc:** khi `story_data.dart` vượt ~300 dòng → tách theo từng Hồi (`act1_data.dart`, `act2_data.dart`...). Khi `main.dart` phình to → tách UI thành `screens/` và `widgets/` riêng (đã bắt đầu áp dụng ở cấu trúc trên).
@@ -185,22 +187,22 @@ gia_long_flutter/
 - [ ] Vẽ sơ đồ luồng game tổng thể (flow chart) từ Hồi 1 → Hồi 6
 
 ### GIAI ĐOẠN 1 — Hoàn thiện khung kỹ thuật (2–3 tuần)
-- [ ] Tách `story_data.dart` thành cấu trúc `story/act1_data.dart` v.v.
-- [ ] Tạo `models/quest.dart`, `models/player_state.dart`
-- [ ] Xây `screens/main_menu_screen.dart` (màn hình chính: Chơi mới / Tiếp tục / Cài đặt)
-- [ ] Xây `screens/quest_log_screen.dart` cơ bản
+- [x] Tách `story_data.dart` thành cấu trúc `story/act1_data.dart` v.v.
+- [x] Tạo `models/quest.dart`, `models/player_state.dart`
+- [x] Xây `screens/main_menu_screen.dart` (màn hình chính: Chơi mới / Tiếp tục / Cài đặt)
+- [x] Xây `screens/quest_log_screen.dart` cơ bản
 
 ### GIAI ĐOẠN 2 — Nội dung Hồi 1–3 (2–3 tháng)
 - [ ] Hoàn thiện toàn bộ scene + lựa chọn Hồi 1 (mở rộng thêm nhánh ngoài demo hiện có)
-- [ ] Viết Hồi 2: cơ chế "vòng lặp được–mất", trận Rạch Gầm (thất bại có kịch bản)
-- [ ] Viết Hồi 3: quest ngoại giao, quest ẩn "Góc Nhìn Đa Chiều"
-- [ ] Gắn hệ thống quest vào từng scene tương ứng
+- [x] Viết Hồi 2: cơ chế "vòng lặp được–mất", trận Rạch Gầm (thất bại có kịch bản)
+- [x] Viết Hồi 3: quest ngoại giao, quest ẩn "Góc Nhìn Đa Chiều"
+- [x] Gắn hệ thống quest vào từng scene tương ứng
 
 ### GIAI ĐOẠN 3 — Nội dung Hồi 4–6 (2–3 tháng)
-- [ ] Xây cơ chế base-building nhẹ cho Hồi 4 (màn hình phân bổ tài nguyên)
-- [ ] Viết chuỗi trận Bắc Tiến Hồi 5 (turn-based combat cơ bản)
-- [ ] Viết trận Thăng Long (Hồi 6) — boss multi-phase
-- [ ] Cutscene kết + màn hình tổng kết lựa chọn người chơi
+- [x] Xây cơ chế base-building nhẹ cho Hồi 4 (màn hình phân bổ tài nguyên)
+- [x] Viết chuỗi trận Bắc Tiến Hồi 5 (turn-based combat cơ bản)
+- [x] Viết trận Thăng Long (Hồi 6) — boss multi-phase
+- [x] Cutscene kết + màn hình tổng kết lựa chọn người chơi
 
 ### GIAI ĐOẠN 4 — Asset hình ảnh & âm thanh (2–4 tuần, làm song song)
 - [ ] Thêm hình nền từng bối cảnh (Gia Định, Xiêm La, Phú Xuân, Thăng Long...)
